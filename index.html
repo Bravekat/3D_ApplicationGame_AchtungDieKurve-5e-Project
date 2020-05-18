@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>AchtungDieKurve!</title>
+        <link rel="stylesheet" href="css/style.css">
+
+        <!-- requisites -->
+        <script type="text/javascript" src="js/three.min.js"></script>
+        <script type="text/javascript" src="js/MTLLoader.js"></script>
+        <script type="text/javascript" src="js/OBJLoader.js"></script>
+        <!--script type="text/javascript" src="js/OBJLoader2.js"></script-->
+        <!--<script type="text/javascript" src="js/models.js"></script>-->
+        <script type="text/javascript" src="js/Snake.js"></script>
+        <script type="text/javascript" src="js/player.js"></script>
+        <script type="text/javascript" src="js/controls.js"></script>
+        <script type="text/javascript" src="js/PowerUps.js"></script>
+        <script type="text/javascript" src="js/game.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+
+    </head>
+    <body>
+        <div id="canvas">
+        <audio controls loop autoplay hidden>
+            <source src="music/bensound-extremeaction.mp3 " type="audio/mpeg">
+            <!-- Music: https://www.bensound.com --->
+        </audio>
+		 <img id="image" src="img/playfield.jpg" alt="playfield" height="100%" width="100%">
+            <div id="layer">
+                <div id="game"></div>
+                <div id="players"></div>
+            </div>
+
+            <div id="overlay">
+                <h1 id="gameTitle">Achtung, die Kurve!</h1>
+                <p id="instructions">Achtung, die Kurve! is a multiplayer game based on Snake.</br>In this game you're a snake getting longer
+                and longer and you have to avoid bumping into other snakes and yourself.</br>You can play with up to 8 people and everyone can choose their own controls.
+                </br>There are also several Power Ups you can pick up in the game such as making your snake go faster, grow bigger or jump more often.</br>Have fun playing!</p>
+                <button type="button" id="playButton" onclick="startOff()">Play</button>
+            </div>
+
+            <div id="overlay2">
+                <h1 id="paused">Paused</h1>
+                <div id="center">
+                    <button type="button" id="continue" onclick="pauseOff()">Continue</button><br>
+                    <button type="button" id="reset" onclick="gamereset()">Reset</button>
+                </div>
+            </div>
+
+            <div id="win">
+                <div id="gameover"></div>
+                <button type="button" id="reset2" onclick="gamereset()">Start Again</button><br>
+                <button type="button" id="newgame" onclick="location.reload()">New Game</button>
+            </div>
+
+            <button type="button" id="pauseBtn" onclick="pauseOn()">Pause</button>
+
+        <script>
+
+            document.body.onload = function() {
+                onLoad();
+                startOn();
+            };
+
+            function startOn() {
+                document.getElementById("overlay").style.display = "block";
+                settingsOff();
+            }
+
+            function startOff() {
+                document.getElementById("overlay").style.display = "none";
+                settingsOn();
+
+                //for(var i = 0; i < players.length; i++) {
+                // players[i].snake.speed = 0.5;
+                //}
+            }
+
+            function pauseOn(){
+                document.getElementById("overlay2").style.display = "block";
+                paused = true;
+
+                for(let i = 0; i < players.length; i++) {
+                    players[i].snake.lastSpeed = players[i].snake.speed;
+                    players[i].snake.speed = 0;
+                }
+            }
+
+            function pauseOff(){
+                document.getElementById("overlay2").style.display = "none";
+                paused = false;
+                addPowerUps();
+
+                for(let i = 0; i < players.length; i++) {
+                    players[i].snake.speed = players[i].snake.lastSpeed;
+                }
+            }
+
+            function settingsOn() {
+                document.getElementById("layer").style.display = "block";
+            }
+
+            function settingsOff() {
+                document.getElementById("layer").style.display = "none";
+            }
+
+        </script>
+
+        </div>
+    </body>
+<script>
+</script>
+</html>
